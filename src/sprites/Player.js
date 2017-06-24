@@ -8,27 +8,40 @@ export default class extends Phaser.Sprite {
   }
 
   update () {
-    if (this.alive)
-    {
+    if (this.alive) {
         //  Reset the player, then check for movement keys
         this.body.velocity.setTo(0, 0);
 
-        if (this.game.cursors.left.isDown)
-        {
-            this.body.velocity.x = -200;
-        }
-        else if (this.game.cursors.right.isDown)
-        {
-            this.body.velocity.x = 200;
+        if (this.game.cursors.left.isDown) {
+            // Limit left side to bounds
+            if (this.body.position.x < this.game.world.bounds.x) {
+                this.body.velocity.x = 0
+            } else {
+                this.body.velocity.x = -200;
+            }
+        } else if (this.game.cursors.right.isDown) {
+            // Limit right side to bounds
+            if (this.body.position.x > this.game.world.bounds.width - this.body.width) {
+                this.body.velocity.x = 0
+            } else {
+                this.body.velocity.x = 200;
+            }
         }
 
-        if (this.game.cursors.up.isDown)
-        {
-            this.body.velocity.y = -200;
-        }
-        else if (this.game.cursors.down.isDown)
-        {
-            this.body.velocity.y = 200;
+        if (this.game.cursors.up.isDown) {
+          // Limit top side to bounds
+          if (this.body.position.y < this.game.world.bounds.y) {
+              this.body.velocity.y = 0
+          } else {
+              this.body.velocity.y = -200;
+          }
+        } else if (this.game.cursors.down.isDown) {
+          // Limit bottom side to bounds
+          if (this.body.position.y > this.game.world.bounds.height - this.body.height) {
+              this.body.velocity.y = 0
+          } else {
+              this.body.velocity.y = 200;
+          }
         }
 
         // //  Firing?
