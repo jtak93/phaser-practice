@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import Player from '../sprites/Player'
 import Starfield from '../tilesprites/Starfield'
+import Bullets from '../groups/Bullets'
 
 export default class extends Phaser.State {
   init () {}
@@ -24,11 +25,19 @@ export default class extends Phaser.State {
       key: 'starfield'
     })
 
+    this.bullets = new Bullets({
+      game: this,
+      enableBody: true,
+      physicsBodyType: Phaser.Physics.ARCADE
+    })
+
     this.game.add.existing(this.player)
     // creat background and send to back
     this.game.add.existing(this.starfield)
+    this.game.add.existing(this.bullets)
     this.world.sendToBack(this.starfield)
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
   }

@@ -5,6 +5,7 @@ export default class extends Phaser.Sprite {
     super(game, x, y, asset)
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
+    this.bulletTime = 0;
   }
 
   update () {
@@ -44,12 +45,11 @@ export default class extends Phaser.Sprite {
           }
         }
 
-        // //  Firing?
-        // if (fireButton.isDown)
-        // {
-        //     fireBullet();
-        // }
-        //
+        //  Firing?
+        if (this.game.fireButton.isDown) {
+            this.fireBullet();
+        }
+
         // if (game.time.now > firingTimer)
         // {
         //     enemyFires();
@@ -59,5 +59,22 @@ export default class extends Phaser.Sprite {
         // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
         // game.physics.arcade.overlap(enemyBullets, player, enemyHitsPlayer, null, this);
     }
+  }
+
+  fireBullet() {
+
+        //  To avoid them being allowed to fire too fast we set a time limit
+    if (this.game.time.now > this.bulletTime) {
+        //  Grab the first bullet we can from the pool
+        this.bullet = this.game.bullets.getFirstExists(false);
+
+        if (this.bullet) {
+            //  And fire it
+            this.bullet.reset(this.x, this.y + 8);
+            this.bullet.body.velocity.y = -400;
+            this.bulletTime = this.game.time.now + 200;
+        }
+    }
+
   }
 }
