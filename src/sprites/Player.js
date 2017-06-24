@@ -1,11 +1,13 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
-  constructor ({ game, x, y, asset }) {
-    super(game, x, y, asset)
+  constructor ({ game, x, y, asset, weaponLevel, firingTime }) {
+    super(game, x, y, asset, weaponLevel, firingTime)
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
+    this.weaponLevel = weaponLevel
+    this.firingTime = firingTime ? firingTime : 400
   }
 
   update () {
@@ -62,18 +64,39 @@ export default class extends Phaser.Sprite {
   }
 
   fireBullet() {
+    console.log('fired bullet', this.firingTime)
 
         //  To avoid them being allowed to fire too fast we set a time limit
     if (this.game.time.now > this.bulletTime) {
         //  Grab the first bullet we can from the pool
-        this.bullet = this.game.bullets.getFirstExists(false);
+        if (this.weaponLevel === 1) {
+          this.bullet = this.game.bullets.getFirstExists(false);
 
-        if (this.bullet) {
+          if (this.bullet) {
             //  And fire it
             this.bullet.reset(this.x, this.y + 8);
             this.bullet.body.velocity.y = -400;
-            this.bulletTime = this.game.time.now + 200;
+            this.bulletTime = this.game.time.now + this.firingTime;
+          }
         }
+
+        if (this.weaponLevel >= 2) {
+          this.bullets = [];
+          for (let i = 0; i < this.weaponLevel; i++) {
+            this.bullets.push(this.game.bullets.getTop());
+            this.game.bullets.getTop().sendToBack()
+          }
+
+          if (this.bullets.length === 2) {
+            //  Fire two bullets
+            this.bullets[0].reset(this.x - 8, this.y + 8);
+            this.bullets[0].body.velocity.y = -400;
+            this.bullets[1].reset(this.x + 8, this.y + 8);
+            this.bullets[1].body.velocity.y = -400;
+            this.bulletTime = this.game.time.now + this.firingTime;
+          }
+        }
+
     }
 
   }

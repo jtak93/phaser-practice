@@ -13,7 +13,8 @@ export default class extends Phaser.State {
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
-      asset: 'player'
+      asset: 'player',
+      weaponLevel: 2
     })
 
     this.starfield = new Starfield({
