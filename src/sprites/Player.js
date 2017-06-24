@@ -1,13 +1,14 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
-  constructor ({ game, x, y, asset, weaponLevel, firingTime }) {
-    super(game, x, y, asset, weaponLevel, firingTime)
+  constructor ({ game, x, y, asset, weaponLevel, firingRateLevel }) {
+    super(game, x, y, asset, weaponLevel, firingRateLevel)
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
-    this.weaponLevel = weaponLevel
-    this.firingTime = firingTime ? firingTime : 400
+    this.weaponLevel = weaponLevel;
+    this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
+    this.firingRate = 400 - (this.firingRateLevel * 20);
   }
 
   update () {
@@ -76,7 +77,7 @@ export default class extends Phaser.Sprite {
             //  And fire it
             this.bullet.reset(this.x, this.y + 8);
             this.bullet.body.velocity.y = -400;
-            this.bulletTime = this.game.time.now + this.firingTime;
+            this.bulletTime = this.game.time.now + this.firingRate;
           }
         }
 
@@ -93,7 +94,7 @@ export default class extends Phaser.Sprite {
             this.bullets[0].body.velocity.y = -400;
             this.bullets[1].reset(this.x + 8, this.y + 8);
             this.bullets[1].body.velocity.y = -400;
-            this.bulletTime = this.game.time.now + this.firingTime;
+            this.bulletTime = this.game.time.now + this.firingRate;
           }
         }
 
