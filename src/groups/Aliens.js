@@ -5,6 +5,10 @@ export default class Aliens extends Phaser.Group {
     super(game, parent, name, addToStage, enableBody, physicsBodyType)
   }
 
+  update() {
+    this.game.physics.arcade.overlap(this.game.bullets, this, this.collisionHandler, null, this.game);
+  }
+
   createAliens () {
 
     for (let y = 0; y < 4; y++)
@@ -28,4 +32,35 @@ export default class Aliens extends Phaser.Group {
     // //  When the tween loops it calls descend
     // tween.onLoop.add(descend, this);
   }
+
+  collisionHandler (bullet, alien) {
+
+    //  When a bullet hits an alien we kill them both
+    bullet.kill();
+    alien.kill();
+
+    // //  Increase the score
+    // score += 20;
+    // scoreText.text = scoreString + score;
+    //
+    // //  And create an explosion :)
+    // var explosion = explosions.getFirstExists(false);
+    // explosion.reset(alien.body.x, alien.body.y);
+    // explosion.play('kaboom', 30, false, true);
+    //
+    // if (aliens.countLiving() == 0)
+    // {
+    //     score += 1000;
+    //     scoreText.text = scoreString + score;
+    //
+    //     enemyBullets.callAll('kill',this);
+    //     stateText.text = " You Won, \n Click to restart";
+    //     stateText.visible = true;
+    //
+    //     //the "click to restart" handler
+    //     game.input.onTap.addOnce(restart,this);
+    // }
+
+    }
+
 }

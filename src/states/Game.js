@@ -10,6 +10,8 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
     this.player = new Player({
       game: this,
       x: this.world.centerX,
@@ -49,8 +51,6 @@ export default class extends Phaser.State {
     this.world.sendToBack(this.starfield)
     this.cursors = this.input.keyboard.createCursorKeys();
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-
   }
 
   render () {
