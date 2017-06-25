@@ -1,6 +1,9 @@
 import 'pixi'
 import 'p2'
 import Phaser from 'phaser'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UIMain from './ui-main';
 
 import BootState from './states/Boot'
 import SplashState from './states/Splash'
@@ -27,3 +30,4 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game()
+ReactDOM.render(<UIMain />, document.getElementById('content'));

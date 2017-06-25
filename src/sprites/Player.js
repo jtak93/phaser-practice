@@ -1,13 +1,13 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
-  constructor ({ game, x, y, asset, weaponLevel, firingRateLevel }) {
-    super(game, x, y, asset, weaponLevel, firingRateLevel)
+  constructor ({ game, x, y, asset, weaponType, weaponLevel, firingRateLevel }) {
+    super(game, x, y, asset, weaponType, weaponLevel, firingRateLevel)
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
     this.weapon = {
-      type: 'laser',
+      type: 'bullet',
       level: weaponLevel
     };
     this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
@@ -63,11 +63,6 @@ export default class extends Phaser.Sprite {
 
         }
 
-        // if (game.time.now > firingTimer)
-        // {
-        //     enemyFires();
-        // }
-
         //  Run collision
         this.game.physics.arcade.overlap(this.game.alienBullets, this, this.alienBulletHitsPlayer, null, this);
     }
@@ -96,13 +91,15 @@ export default class extends Phaser.Sprite {
 
           if (this.bullet) {
             //  And fire it
-            this.bullet.reset(this.x, this.y + 8);
+            this.bullet.reset(this.x, this.y + 10);
             this.bullet.body.velocity.y = -400;
             this.bulletTime = this.game.time.now + this.firingRate;
           }
         }
 
-        if (this.weapon.level >= 2) {
+        // Level 2 bullets
+
+        if (this.weapon.level === 2) {
           this.bullets = [];
           for (let i = 0; i < this.weapon.level; i++) {
             this.bullets.push(this.game.bullets.getTop());
@@ -111,10 +108,54 @@ export default class extends Phaser.Sprite {
 
           if (this.bullets.length === 2) {
             //  Fire two bullets
-            this.bullets[0].reset(this.x - 8, this.y + 8);
+            this.bullets[0].reset(this.x - 8, this.y + 10);
             this.bullets[0].body.velocity.y = -400;
-            this.bullets[1].reset(this.x + 8, this.y + 8);
+            this.bullets[1].reset(this.x + 8, this.y + 10);
             this.bullets[1].body.velocity.y = -400;
+            this.bulletTime = this.game.time.now + this.firingRate;
+          }
+        }
+
+        // Level 3 bullets
+        if (this.weapon.level === 3) {
+          this.bullets = [];
+          for (let i = 0; i < this.weapon.level; i++) {
+            this.bullets.push(this.game.bullets.getTop());
+            this.game.bullets.getTop().sendToBack()
+          }
+
+          if (this.bullets.length === 3) {
+            //  Fire three bullets
+            this.bullets[0].reset(this.x - 10, this.y + 10);
+            this.bullets[0].body.velocity.y = -400;
+            this.bullets[1].reset(this.x, this.y + 10);
+            this.bullets[1].body.velocity.y = -400;
+            this.bullets[2].reset(this.x + 10, this.y + 10);
+            this.bullets[2].body.velocity.y = -400;
+            this.bulletTime = this.game.time.now + this.firingRate;
+          }
+        }
+
+        // Level 4 bullets
+        if (this.weapon.level === 4) {
+          this.bullets = [];
+          for (let i = 0; i < this.weapon.level; i++) {
+            this.bullets.push(this.game.bullets.getTop());
+            this.game.bullets.getTop().sendToBack()
+          }
+
+          if (this.bullets.length === 4) {
+            //  Fire four bullets
+            this.bullets[0].reset(this.x - 10, this.y + 15);
+            this.bullets[0].body.velocity.y = -350;
+            this.bullets[0].body.velocity.x = -50;
+            this.bullets[1].reset(this.x - 5, this.y + 15);
+            this.bullets[1].body.velocity.y = -400;
+            this.bullets[2].reset(this.x + 5, this.y + 15);
+            this.bullets[2].body.velocity.y = -400;
+            this.bullets[3].reset(this.x + 10, this.y + 15);
+            this.bullets[3].body.velocity.y = -350;
+            this.bullets[3].body.velocity.x = 50;
             this.bulletTime = this.game.time.now + this.firingRate;
           }
         }
