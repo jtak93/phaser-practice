@@ -3,9 +3,10 @@ import WebFont from 'webfontloader'
 
 export default class extends Phaser.State {
   init () {
-    this.stage.backgroundColor = '#EDEEC9'
+    this.stage.backgroundColor = '#000000'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
+    this.startGame = this.startGame.bind(this)
   }
 
   preload () {
@@ -18,17 +19,19 @@ export default class extends Phaser.State {
 
     let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     text.anchor.setTo(0.5, 0.5)
-
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
-    this.load.image('play', './assets/images/play-button.png')
   }
 
   render () {
     if (this.fontsReady) {
-      this.state.start('Start')
+      let playButton = this.add.button(this.world.centerX, this.world.centerY, 'play', this.startGame)
+      playButton.anchor.setTo(0.5, 0.5)
     }
   }
+
+  startGame() {
+    this.state.start('Splash')
+  }
+
 
   fontsLoaded () {
     this.fontsReady = true
