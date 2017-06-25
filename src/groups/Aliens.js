@@ -3,10 +3,15 @@ import Phaser from 'phaser'
 export default class Aliens extends Phaser.Group {
   constructor ({ game, parent, name, addToStage, enableBody, physicsBodyType }) {
     super(game, parent, name, addToStage, enableBody, physicsBodyType)
+    this.firingTimer = this.game.time.now;
+    this.livingAliens = [];
   }
 
   update() {
     this.game.physics.arcade.overlap(this.game.bullets, this, this.collisionHandler, null, this.game);
+    if (this.game.time.now > this.firingTimer) {
+        this.enemyFires();
+    }
   }
 
   createAliens (rows, columns, hp) {
@@ -41,28 +46,23 @@ export default class Aliens extends Phaser.Group {
     if (alien.hp <= 0) alien.kill()
     bullet.kill();
 
-    // //  Increase the score
-    // score += 20;
-    // scoreText.text = scoreString + score;
-    //
-    // //  And create an explosion :)
-    // var explosion = explosions.getFirstExists(false);
-    // explosion.reset(alien.body.x, alien.body.y);
-    // explosion.play('kaboom', 30, false, true);
-    //
-    // if (aliens.countLiving() == 0)
-    // {
-    //     score += 1000;
-    //     scoreText.text = scoreString + score;
-    //
-    //     enemyBullets.callAll('kill',this);
-    //     stateText.text = " You Won, \n Click to restart";
-    //     stateText.visible = true;
-    //
-    //     //the "click to restart" handler
-    //     game.input.onTap.addOnce(restart,this);
-    // }
+  }
 
+  enemyFires() {
+    this.livingAliens = [];
+    this.alienBullet = this.game.alienBullets.getFirstExists(false);
+    this.forEachAlive(alien => {
+      this.livingAliens.push(alien)
+    })
+
+    if(this.alienBullet && this.livingAliens.length > 0) {
+      let random = this.game.rnd.integerInRange(0, this.livingAliens.length-1);
+      let shooter = this.livingAliens[random];
+      this.alienBullet.reset(shooter.body.x, shooter.body.y);
+      this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player,120);
     }
+    this.firingTimer += 500
+  }
+
 
 }
