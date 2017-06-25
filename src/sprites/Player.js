@@ -58,8 +58,8 @@ export default class extends Phaser.Sprite {
         //     enemyFires();
         // }
 
-        // //  Run collision
-        // game.physics.arcade.overlap(enemyBullets, player, enemyHitsPlayer, null, this);
+        //  Run collision
+        this.game.physics.arcade.overlap(this.game.alienBullets, this, this.alienBulletHitsPlayer, null, this);
     }
   }
 
@@ -98,5 +98,11 @@ export default class extends Phaser.Sprite {
 
     }
 
+  }
+
+  alienBulletHitsPlayer (player, bullet) {
+
+    bullet.kill();
+    player.kill();
   }
 }
