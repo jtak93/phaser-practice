@@ -146,14 +146,14 @@ export default class extends Phaser.Sprite {
 
           if (this.bullets.length === 4) {
             //  Fire four bullets
-            this.bullets[0].reset(this.x - 10, this.y + 15);
+            this.bullets[0].reset(this.x - 10, this.y - 8);
             this.bullets[0].body.velocity.y = -350;
             this.bullets[0].body.velocity.x = -50;
-            this.bullets[1].reset(this.x - 5, this.y + 15);
+            this.bullets[1].reset(this.x - 5, this.y - 8);
             this.bullets[1].body.velocity.y = -400;
-            this.bullets[2].reset(this.x + 5, this.y + 15);
+            this.bullets[2].reset(this.x + 5, this.y - 8);
             this.bullets[2].body.velocity.y = -400;
-            this.bullets[3].reset(this.x + 10, this.y + 15);
+            this.bullets[3].reset(this.x + 10, this.y - 8);
             this.bullets[3].body.velocity.y = -350;
             this.bullets[3].body.velocity.x = 50;
             this.bulletTime = this.game.time.now + this.firingRate;
