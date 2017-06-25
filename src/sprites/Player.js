@@ -59,13 +59,11 @@ export default class extends Phaser.Sprite {
         // }
 
         // //  Run collision
-        // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
         // game.physics.arcade.overlap(enemyBullets, player, enemyHitsPlayer, null, this);
     }
   }
 
   fireBullet() {
-    console.log('fired bullet', this.firingTime)
 
         //  To avoid them being allowed to fire too fast we set a time limit
     if (this.game.time.now > this.bulletTime) {

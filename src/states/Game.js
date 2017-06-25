@@ -47,7 +47,7 @@ export default class extends Phaser.State {
     this.game.add.existing(this.starfield)
     this.game.add.existing(this.bullets)
     this.game.add.existing(this.aliens)
-    this.aliens.createAliens()
+    this.aliens.createAliens(1, 10, 2)
     this.world.sendToBack(this.starfield)
     this.cursors = this.input.keyboard.createCursorKeys();
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);

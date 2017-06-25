@@ -9,16 +9,17 @@ export default class Aliens extends Phaser.Group {
     this.game.physics.arcade.overlap(this.game.bullets, this, this.collisionHandler, null, this.game);
   }
 
-  createAliens () {
+  createAliens (rows, columns, hp) {
 
-    for (let y = 0; y < 4; y++)
+    for (let y = 0; y < ((rows) ? rows : 4); y++)
     {
-        for (let x = 0; x < 10; x++)
+        for (let x = 0; x < ((columns) ? columns : 10); x++)
         {
             let alien = this.create(x * 48, y * 50, 'invader');
             alien.anchor.setTo(0.5, 0.5);
             // alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
             // alien.play('fly');
+            alien.hp = (hp) ? hp : 1;
             alien.body.moves = false;
         }
     }
@@ -36,8 +37,9 @@ export default class Aliens extends Phaser.Group {
   collisionHandler (bullet, alien) {
 
     //  When a bullet hits an alien we kill them both
+    if (alien.alive) alien.hp -= 1;
+    if (alien.hp <= 0) alien.kill()
     bullet.kill();
-    alien.kill();
 
     // //  Increase the score
     // score += 20;
