@@ -30,8 +30,8 @@ export default class extends Phaser.State {
       game: this,
       x: 0,
       y: 0,
-      width: 760,
-      height: 400,
+      width: this.world.width,
+      height: this.world.height,
       key: 'starfield'
     })
 
