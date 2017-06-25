@@ -5,6 +5,7 @@ import Starfield from '../tilesprites/Starfield'
 import AlienBullets from '../groups/AlienBullets'
 import Bullets from '../groups/Bullets'
 import Aliens from '../groups/Aliens'
+import Lasers from '../groups/Lasers'
 
 export default class extends Phaser.State {
   init () {}
@@ -47,6 +48,14 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.bullets)
 
+    this.lasers = new Lasers({
+      game: this,
+      enableBody: true,
+      physicsBodyType: Phaser.Physics.ARCADE
+    })
+
+    this.game.add.existing(this.lasers)
+
     this.aliens = new Aliens({
       game: this,
       enableBody: true,
@@ -55,7 +64,7 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.aliens)
     // Make aliens with rows, columns, and hp
-    this.aliens.createAliens(3, 10, 2)
+    this.aliens.createAliens(3, 10, 100)
 
     this.alienBullets = new AlienBullets({
       game: this,

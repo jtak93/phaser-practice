@@ -6,13 +6,17 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
-    this.weaponLevel = weaponLevel;
+    this.weapon = {
+      type: 'laser',
+      level: weaponLevel
+    };
     this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
     this.firingRate = 400 - (this.firingRateLevel * 20);
   }
 
   update () {
     if (this.alive) {
+        if (this.game.lasers) this.game.lasers.align
         //  Reset the player, then check for movement keys
         this.body.velocity.setTo(0, 0);
 
@@ -50,7 +54,13 @@ export default class extends Phaser.Sprite {
 
         //  Firing?
         if (this.game.fireButton.isDown) {
-            this.fireBullet();
+            // check weapon type
+            if (this.weapon.type === 'bullet') {
+              this.fireBullet();
+            } else if (this.weapon.type === 'laser') {
+              this.fireLaser();
+            }
+
         }
 
         // if (game.time.now > firingTimer)
@@ -63,12 +73,25 @@ export default class extends Phaser.Sprite {
     }
   }
 
+  fireLaser() {
+      console.log('laser fired')
+      if (this.game.time.now > this.bulletTime) {
+        let laser = this.game.lasers.getTop();
+        laser.reset(this.x, this.y);
+        laser.body.velocity.y = -400;
+        laser.sendToBack();
+        this.bulletTime = this.game.time.now + 5
+
+      }
+
+  }
+
   fireBullet() {
 
         //  To avoid them being allowed to fire too fast we set a time limit
     if (this.game.time.now > this.bulletTime) {
         //  Grab the first bullet we can from the pool
-        if (this.weaponLevel === 1) {
+        if (this.weapon.level === 1) {
           this.bullet = this.game.bullets.getFirstExists(false);
 
           if (this.bullet) {
@@ -79,9 +102,9 @@ export default class extends Phaser.Sprite {
           }
         }
 
-        if (this.weaponLevel >= 2) {
+        if (this.weapon.level >= 2) {
           this.bullets = [];
-          for (let i = 0; i < this.weaponLevel; i++) {
+          for (let i = 0; i < this.weapon.level; i++) {
             this.bullets.push(this.game.bullets.getTop());
             this.game.bullets.getTop().sendToBack()
           }
@@ -100,8 +123,9 @@ export default class extends Phaser.Sprite {
 
   }
 
-  alienBulletHitsPlayer (player, bullet) {
 
+  alienBulletHitsPlayer (player, bullet) {
+    // if alien hits player kill player and bullet
     bullet.kill();
     player.kill();
   }

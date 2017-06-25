@@ -8,7 +8,8 @@ export default class Aliens extends Phaser.Group {
   }
 
   update() {
-    this.game.physics.arcade.overlap(this.game.bullets, this, this.collisionHandler, null, this.game);
+    this.game.physics.arcade.overlap(this.game.bullets, this, this.bulletCollisionHandler, null, this.game);
+    this.game.physics.arcade.overlap(this.game.lasers, this, this.laserCollisionHandler, null, this.game);
     if (this.game.time.now > this.firingTimer) {
         this.enemyFires();
     }
@@ -39,14 +40,24 @@ export default class Aliens extends Phaser.Group {
     // tween.onLoop.add(descend, this);
   }
 
-  collisionHandler (bullet, alien) {
+  bulletCollisionHandler (bullet, alien) {
 
-    //  When a bullet hits an alien we kill them both
-    if (alien.alive) alien.hp -= 1;
+    //  When a bullet hits an alien reduce hp by 50
+    if (alien.alive) alien.hp -= 50;
     if (alien.hp <= 0) alien.kill()
     bullet.kill();
 
   }
+
+  laserCollisionHandler (laser, alien) {
+
+    //  When a laser hits an alien reduce hp by 5
+    if (alien.alive) alien.hp -= 5;
+    if (alien.hp <= 0) alien.kill()
+    laser.kill();
+
+  }
+
 
   enemyFires() {
     this.livingAliens = [];
@@ -61,7 +72,7 @@ export default class Aliens extends Phaser.Group {
       this.alienBullet.reset(shooter.body.x, shooter.body.y);
       this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player,120);
     }
-    this.firingTimer += 500
+    this.firingTimer += 500;
   }
 
 
