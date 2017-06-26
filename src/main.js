@@ -7,7 +7,7 @@ import UIMain from './ui-main';
 
 import BootState from './states/Boot'
 import SplashState from './states/Splash'
-import GameState from './states/Game'
+import Level1State from './states/Level1'
 import StartState from './states/Start'
 
 import config from './config'
@@ -23,7 +23,7 @@ class Game extends Phaser.Game {
     this.state.add('Boot', BootState, false)
     this.state.add('Start', StartState, false)
     this.state.add('Splash', SplashState, false)
-    this.state.add('Game', GameState, false)
+    this.state.add('Level1', Level1State, false)
 
     this.state.start('Boot')
   }
