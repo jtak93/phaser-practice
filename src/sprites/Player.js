@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 export default class extends Phaser.Sprite {
   constructor ({
     game, x, y, asset,
-    weaponType, weaponLevel, firingRateLevel, startingHP
+    weaponType, weaponLevel, firingRateLevel, maxHealth
    }) {
     super(
       game, x, y, asset,
@@ -16,8 +16,8 @@ export default class extends Phaser.Sprite {
       type: 'bullet',
       level: weaponLevel
     };
-    this.startingHP = startingHP;
-    this.hp = (startingHP) ? startingHP : 100;
+    this.maxHealth = maxHealth;
+    this.health = (maxHealth) ? maxHealth : 100;
     this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
     this.firingRate = 400 - (this.firingRateLevel * 20);
   }
@@ -73,6 +73,7 @@ export default class extends Phaser.Sprite {
 
         //  Run collision
         this.game.physics.arcade.overlap(this.game.alienBullets, this, this.alienBulletHitsPlayer, null, this);
+        this.game.physics.arcade.overlap(this.game.aliens, this, this.alienHitsPlayer, null, this);
     }
   }
 
@@ -177,9 +178,25 @@ export default class extends Phaser.Sprite {
     // if alien hits player kill player and bullet
     if (player.alive) {
       bullet.kill();
-      this.hp -= 10;
-      console.log('current hp', this.hp)
-      if (this.hp <= 0) player.kill();
+      this.health -= 10;
+      console.log('current hp', this.health)
+      if (this.health <= 0) {
+        this.health = 0;
+        player.kill();
+      }
+    }
+  }
+
+  alienHitsPlayer (player, alien) {
+    if (player.alive) {
+      alien.kill();
+      this.health -= 50;
+      console.log('current hp', this.health)
+      if (this.health <= 0) {
+        this.health = 0;
+        player.kill();
+        console.log('reset health to 0', this.health)
+      }
     }
   }
 }

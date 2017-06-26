@@ -21,11 +21,12 @@ export default class extends Phaser.State {
       y: this.world.centerY + 150,
       asset: 'player',
       weaponLevel: 4,
-      startingHP: 100,
+      maxHealth: 100,
       firingRateLevel: 1
     })
 
     this.game.add.existing(this.player)
+
 
     this.starfield = new Starfield({
       game: this,
