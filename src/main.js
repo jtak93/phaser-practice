@@ -30,4 +30,4 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game()
-ReactDOM.render(<UIMain />, document.getElementById('content'));
+ReactDOM.render(<UIMain game={window.game}/>, document.getElementById('content'));

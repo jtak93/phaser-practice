@@ -1,8 +1,14 @@
 import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
-  constructor ({ game, x, y, asset, weaponType, weaponLevel, firingRateLevel }) {
-    super(game, x, y, asset, weaponType, weaponLevel, firingRateLevel)
+  constructor ({
+    game, x, y, asset,
+    weaponType, weaponLevel, firingRateLevel, startingHP
+   }) {
+    super(
+      game, x, y, asset,
+      weaponType, weaponLevel, firingRateLevel
+    )
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
@@ -10,6 +16,8 @@ export default class extends Phaser.Sprite {
       type: 'bullet',
       level: weaponLevel
     };
+    this.startingHP = startingHP;
+    this.hp = (startingHP) ? startingHP : 100;
     this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
     this.firingRate = 400 - (this.firingRateLevel * 20);
   }
@@ -167,7 +175,11 @@ export default class extends Phaser.Sprite {
 
   alienBulletHitsPlayer (player, bullet) {
     // if alien hits player kill player and bullet
-    bullet.kill();
-    player.kill();
+    if (player.alive) {
+      bullet.kill();
+      this.hp -= 10;
+      console.log('current hp', this.hp)
+      if (this.hp <= 0) player.kill();
+    }
   }
 }

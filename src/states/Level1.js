@@ -21,6 +21,7 @@ export default class extends Phaser.State {
       y: this.world.centerY + 150,
       asset: 'player',
       weaponLevel: 4,
+      startingHP: 100,
       firingRateLevel: 1
     })
 
