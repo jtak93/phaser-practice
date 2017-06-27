@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Alien from '../sprites/Alien'
 
 export default class Aliens extends Phaser.Group {
   constructor ({ game, parent, name, addToStage, enableBody, physicsBodyType }) {
@@ -21,12 +22,17 @@ export default class Aliens extends Phaser.Group {
     {
         for (let x = 0; x < ((columns) ? columns : 10); x++)
         {
-            let alien = this.create(x * 48, y * 50, 'invader');
+            let alien = new Alien({
+              game: this.game,
+              x: 30 * x,
+              y: 30 * y,
+              asset: 'invader',
+            })
+            this.game.add.existing(alien)
             alien.anchor.setTo(0.5, 0.5);
             // alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
             // alien.play('fly');
-            alien.hp = (hp) ? hp : 1;
-            alien.body.moves = false;
+            alien.health = (hp) ? hp : 1;
         }
     }
 
