@@ -11,6 +11,12 @@ import Level1State from './states/Level1'
 import StartState from './states/Start'
 
 import config from './config'
+import io from 'socket.io-client';
+var socket = io('http://localhost:4000');
+socket.emit('user connected', { clientId: socket.id})
+socket.on('test', function(data) {
+  console.log(data)
+})
 
 class Game extends Phaser.Game {
   constructor () {
