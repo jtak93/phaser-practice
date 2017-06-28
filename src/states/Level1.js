@@ -6,6 +6,7 @@ import AlienBullets from '../groups/AlienBullets'
 import Bullets from '../groups/Bullets'
 import Aliens from '../groups/Aliens'
 import Lasers from '../groups/Lasers'
+import HealthBar from '../plugins/HealthBar'
 
 export default class extends Phaser.State {
   init () {}
@@ -25,7 +26,7 @@ export default class extends Phaser.State {
       firingRateLevel: 1
     })
 
-    this.game.add.existing(this.player)
+    const player = this.game.add.existing(this.player)
 
 
     this.starfield = new Starfield({
@@ -49,6 +50,24 @@ export default class extends Phaser.State {
     })
 
     this.game.add.existing(this.bullets)
+
+    this.healthBar = new HealthBar({
+      width: this.world.width * 0.8,
+      height: this.world.height * 0.05,
+      x: this.world.width * 0.1,
+      y: this.world.height * 0.9,
+      game: this.game,
+      host: this.player,
+      state: this,
+      watch: {
+          host: player,
+          value: 'health',
+          max: player.maxHealth
+      }
+    })
+
+    this.game.add.existing(this.healthBar)
+    console.log(this.healthBar)
 
     this.lasers = new Lasers({
       game: this,
