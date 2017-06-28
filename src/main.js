@@ -9,14 +9,15 @@ import BootState from './states/Boot'
 import SplashState from './states/Splash'
 import Level1State from './states/Level1'
 import StartState from './states/Start'
+import PVPState from './states/PVP'
+import PVPSplashState from './states/PVPSplash'
 
 import config from './config'
 import socket from './sockets/socket';
 
-socket.emit('user connected', { clientId: socket.id})
-socket.on('test', function(data) {
-  console.log(data)
-})
+console.log('socket:', socket)
+const data = { my: 'test'}
+socket.emit('test', { my: 'test'})
 
 class Game extends Phaser.Game {
   constructor () {
@@ -30,6 +31,8 @@ class Game extends Phaser.Game {
     this.state.add('Start', StartState, false)
     this.state.add('Splash', SplashState, false)
     this.state.add('Level1', Level1State, false)
+    this.state.add('PVP', PVPState, false)
+    this.state.add('PVPSplash', PVPSplashState, false)
 
     this.state.start('Boot')
   }

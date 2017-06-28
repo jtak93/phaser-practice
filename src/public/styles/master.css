@@ -7,3 +7,18 @@ body {
   color: white;
   position: absolute;
 }
+
+.hide {
+  visibility: : hidden !important;
+}
+
+.MainMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.MainMenuBtn {
+  margin-top: 100px !important;
+}
