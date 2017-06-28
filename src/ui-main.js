@@ -21,6 +21,7 @@ class UIMain extends Component {
         this.handleCreateRoom = this.handleCreateRoom.bind(this);
         this.handleJoinRoom = this.handleJoinRoom.bind(this);
     }
+    
     handlePlayGame() {
         this.setState({
           display: 'Level1',

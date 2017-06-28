@@ -52,10 +52,10 @@ export default class extends Phaser.State {
     this.game.add.existing(this.bullets)
 
     this.healthBar = new HealthBar({
-      width: this.world.width * 0.8,
-      height: this.world.height * 0.05,
-      x: this.world.width * 0.1,
-      y: this.world.height * 0.9,
+      width: this.world.width * 0.3,
+      height: this.world.height * 0.025,
+      x: this.world.width * 0.65,
+      y: this.world.height * 0.95,
       game: this.game,
       host: this.player,
       state: this,
@@ -67,7 +67,6 @@ export default class extends Phaser.State {
     })
 
     this.game.add.existing(this.healthBar)
-    console.log(this.healthBar)
 
     this.lasers = new Lasers({
       game: this,
@@ -85,7 +84,7 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.aliens)
     // Make aliens with rows, columns, and hp
-    this.aliens.createAliens(3, 10, 100)
+    this.aliens.createAlienBlock(3, 10, 100)
 
     this.alienBullets = new AlienBullets({
       game: this,

@@ -16,7 +16,7 @@ export default class Aliens extends Phaser.Group {
     }
   }
 
-  createAliens (rows, columns, hp) {
+  createAlienBlock (rows, columns, hp) {
 
     for (let y = 0; y < ((rows) ? rows : 4); y++)
     {
@@ -24,15 +24,18 @@ export default class Aliens extends Phaser.Group {
         {
             let alien = new Alien({
               game: this.game,
-              x: 30 * x,
-              y: 30 * y,
+              x: 40 * x,
+              y: 50 * (y + 1),
               asset: 'invader',
+              hp: 200
             })
             this.game.add.existing(alien)
             alien.anchor.setTo(0.5, 0.5);
             // alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
             // alien.play('fly');
             alien.health = (hp) ? hp : 1;
+            var tween = this.game.add.tween(alien).to( { x: x * 40 + 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+
         }
     }
 

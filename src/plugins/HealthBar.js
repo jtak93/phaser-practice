@@ -78,6 +78,12 @@ export default class extends Phaser.Sprite {
 				this.cropRect.width = newWidth
 				this.bar.crop(this.cropRect)
 			}
+      // check for health % to switch color
+      if (this.bar.width / this.bg.width < 0.25) {
+        this.bar.tint =  0xff0000
+      } else if (this.bar.width / this.bg.width < 0.5) {
+        this.bar.tint = 0xffff00
+      }
 		}
 	}
 }
