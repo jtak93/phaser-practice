@@ -63,14 +63,14 @@ export default class extends Phaser.Sprite {
 
         if (this.game.cursors.up.isDown) {
           // Limit top side to bounds
-          if (this.body.position.y < this.game.world.bounds.y) {
+          if (this.body.position.y < this.game.world.bounds.y + this.game.world.bounds.height * 0.1) {
               this.body.velocity.y = 0
           } else {
               this.body.velocity.y = -200;
           }
         } else if (this.game.cursors.down.isDown) {
           // Limit bottom side to bounds
-          if (this.body.position.y > this.game.world.bounds.height - this.body.height) {
+          if (this.body.position.y > this.game.world.bounds.height * 0.925 - this.body.height) {
               this.body.velocity.y = 0
           } else {
               this.body.velocity.y = 200;
