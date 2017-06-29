@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Shield from './Shield'
 
 export default class extends Phaser.Sprite {
   constructor ({
@@ -20,10 +21,26 @@ export default class extends Phaser.Sprite {
     this.health = (playerStats.maxHealth) ? playerStats.maxHealth : 100;
     this.firingRateLevel = (playerStats.firingRateLevel) ? playerStats.firingRateLevel : 0;
     this.firingRate = 400 - (this.firingRateLevel * 20);
+    this.shieldInActive = true;
+    this.shieldRef = new Shield({
+      game:this.game,
+      x: this.x,
+      y: this.y,
+      asset: 'shield',
+      host: this
+    })
   }
 
   update () {
     if (this.alive) {
+        // if shielded display shield
+        if (this.shield && this.shieldInActive) {
+          this.bringToTop();
+          this.shieldInActive = false;
+          this.shieldRef.host = this;
+          console.log('shieldRef', this.shieldRef)
+          this.game.add.existing(this.shieldRef)
+        }
         if (this.game.lasers) this.game.lasers.align
         //  Reset the player, then check for movement keys
         this.body.velocity.setTo(0, 0);
@@ -92,18 +109,20 @@ export default class extends Phaser.Sprite {
 
   useAbility(abilityNumber) {
     const ability = this.abilities[abilityNumber];
-    var test;
     if(ability.name ==='shield') {
       // check for cooldown
-      if (ability.coolDownTimer === 0) {
+      if (ability.coolDownTimer <= 0) {
         const duration = ability.duration
         ability.coolDownTimer = ability.coolDownDuration;
         this.shield = true;
-        const startCD = this.game.time.events.repeat(Phaser.Timer.SECOND * 0.1, 80, function(){
-          ability.coolDownTimer -= Phaser.Timer.SECOND * 0.1;
+        this.shieldRef.revive();
+        const startCD = this.game.time.events.repeat(Phaser.Timer.SECOND * 0.5, ability.coolDownDuration / 1000 * 2, function(){
+          ability.coolDownTimer -= Phaser.Timer.SECOND * 0.5;
         }, this);
         const startShield = this.game.time.events.add(ability.duration, function(){
           this.shield = false;
+          this.shieldRef.kill()
+          this.shieldInactive = true;
         }, this);
       } else {
         console.log('ability on cd for', ability.coolDownTimer, 'seconds')

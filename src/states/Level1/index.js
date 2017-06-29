@@ -27,7 +27,7 @@ export default class extends Phaser.State {
           level: 1
         },
         abilities: [
-          { name: 'shield', duration: Phaser.Timer.SECOND * 2, coolDownTimer: 0, coolDownDuration: Phaser.Timer.SECOND * 8 }
+          { name: 'shield', duration: Phaser.Timer.SECOND * 2, coolDownTimer: 0, coolDownDuration: Phaser.Timer.SECOND * 5 }
         ],
         maxHealth: 100,
         firingRateLevel: 1

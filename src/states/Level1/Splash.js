@@ -18,6 +18,7 @@ export default class extends Phaser.State {
     this.load.image('bullet', 'assets/images/bullet.png')
     this.load.image('laser', 'assets/images/laser2.png')
     this.load.image('alien-bullet', 'assets/images/enemy-bullet.png')
+    this.load.image('shield', 'assets/images/shield2.png')
     game.load.spritesheet('invader', 'assets/images/invader32x32x4.png', 32, 32, 4);
   }
 
