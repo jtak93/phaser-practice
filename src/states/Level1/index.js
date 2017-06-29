@@ -21,9 +21,14 @@ export default class extends Phaser.State {
       x: this.world.centerX,
       y: this.world.centerY + 150,
       asset: 'player',
-      weaponLevel: 4,
-      maxHealth: 100,
-      firingRateLevel: 1
+      playerStats: {
+        weapon: {
+          type: 'bullet',
+          level: 1
+        },
+        maxHealth: 100,
+        firingRateLevel: 1
+      }
     })
 
     const player = this.game.add.existing(this.player)

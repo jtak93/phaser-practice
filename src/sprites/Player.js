@@ -2,23 +2,21 @@ import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
   constructor ({
-    game, x, y, asset,
-    weaponType, weaponLevel, firingRateLevel, maxHealth
+    game, x, y, asset, playerStats
    }) {
     super(
-      game, x, y, asset,
-      weaponType, weaponLevel, firingRateLevel
+      game, x, y, asset, playerStats
     )
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
     this.weapon = {
-      type: 'bullet',
-      level: weaponLevel
+      type: playerStats.weapon.type,
+      level: playerStats.weapon.level
     };
-    this.maxHealth = maxHealth;
-    this.health = (maxHealth) ? maxHealth : 100;
-    this.firingRateLevel = (firingRateLevel) ? firingRateLevel : 0;
+    this.maxHealth = playerStats.maxHealth;
+    this.health = (playerStats.maxHealth) ? playerStats.maxHealth : 100;
+    this.firingRateLevel = (playerStats.firingRateLevel) ? playerStats.firingRateLevel : 0;
     this.firingRate = 400 - (this.firingRateLevel * 20);
   }
 
@@ -165,6 +163,34 @@ export default class extends Phaser.Sprite {
             this.bullets[3].reset(this.x + 10, this.y - 8);
             this.bullets[3].body.velocity.y = -350;
             this.bullets[3].body.velocity.x = 50;
+            this.bulletTime = this.game.time.now + this.firingRate;
+          }
+        }
+
+        // Level 5 bullets
+        if (this.weapon.level === 5) {
+          this.bullets = [];
+          for (let i = 0; i < this.weapon.level; i++) {
+            this.bullets.push(this.game.bullets.getTop());
+            this.game.bullets.getTop().sendToBack()
+          }
+
+          if (this.bullets.length === 5) {
+            //  Fire five bullets
+            this.bullets[0].reset(this.x - 10, this.y - 8);
+            this.bullets[0].body.velocity.y = -380;
+            this.bullets[0].body.velocity.x = -30;
+            this.bullets[1].reset(this.x - 5, this.y - 8);
+            this.bullets[1].body.velocity.y = -400;
+            this.bullets[1].body.velocity.x = -10;
+            this.bullets[2].reset(this.x, this.y - 8);
+            this.bullets[2].body.velocity.y = -400;
+            this.bullets[3].reset(this.x + 5, this.y - 8);
+            this.bullets[3].body.velocity.y = -400;
+            this.bullets[3].body.velocity.x = 10;
+            this.bullets[4].reset(this.x + 10, this.y - 8);
+            this.bullets[4].body.velocity.y = -380;
+            this.bullets[4].body.velocity.x = 30;
             this.bulletTime = this.game.time.now + this.firingRate;
           }
         }
