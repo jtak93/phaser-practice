@@ -13,7 +13,7 @@ const LevelSelection = (props) => {
       <Grid columns={3}>
         <Grid.Row>
           <Grid.Column>
-            <Button>Level 1</Button>
+            <Button onClick={props.onStart.bind(null, 1)}>Level 1</Button>
           </Grid.Column>
           <Grid.Column>
             <Button>Level 2</Button>

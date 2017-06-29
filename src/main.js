@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import UIMain from './ui-main';
 
 import BootState from './states/Boot'
-import SplashState from './states/Splash'
+import Level1SplashState from './states/Level1/Splash'
 import Level1State from './states/Level1'
 import StartState from './states/Start'
 import PVPState from './states/PVP'
@@ -29,7 +29,7 @@ class Game extends Phaser.Game {
 
     this.state.add('Boot', BootState, false)
     this.state.add('Start', StartState, false)
-    this.state.add('Splash', SplashState, false)
+    this.state.add('Level1Splash', Level1SplashState, false)
     this.state.add('Level1', Level1State, false)
     this.state.add('PVP', PVPState, false)
     this.state.add('PVPSplash', PVPSplashState, false)
@@ -39,4 +39,6 @@ class Game extends Phaser.Game {
 }
 
 window.game = new Game()
+
+// inject React DOM
 ReactDOM.render(<UIMain game={window.game}/>, document.getElementById('content'));

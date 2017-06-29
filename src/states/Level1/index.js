@@ -1,12 +1,12 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Player from '../sprites/Player'
-import Starfield from '../tilesprites/Starfield'
-import AlienBullets from '../groups/AlienBullets'
-import Bullets from '../groups/Bullets'
-import Aliens from '../groups/Aliens'
-import Lasers from '../groups/Lasers'
-import HealthBar from '../plugins/HealthBar'
+import Player from '../../sprites/Player'
+import Starfield from '../../tilesprites/Starfield'
+import AlienBullets from '../../groups/AlienBullets'
+import Bullets from '../../groups/Bullets'
+import Aliens from '../../groups/Aliens'
+import Lasers from '../../groups/Lasers'
+import HealthBar from '../../plugins/HealthBar'
 
 export default class extends Phaser.State {
   init () {}
