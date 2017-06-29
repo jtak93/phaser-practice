@@ -27,7 +27,7 @@ export default class Aliens extends Phaser.Group {
               x: 40 * x,
               y: 50 * (y + 1),
               asset: 'invader',
-              hp: 200
+              health: 300
             })
             this.game.add.existing(alien)
             alien.anchor.setTo(0.5, 0.5);

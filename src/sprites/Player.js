@@ -265,11 +265,15 @@ export default class extends Phaser.Sprite {
       } else {
         bullet.kill();
         this.health -= 10;
-        if (this.health <= 0) {
-          this.health = 0;
-          player.kill();
-        }
+        this.checkHealth()
       }
+    }
+  }
+
+  checkHealth() {
+    if (this.health <= 0) {
+      this.health = 0;
+      this.kill()
     }
   }
 
@@ -277,10 +281,7 @@ export default class extends Phaser.Sprite {
     if (player.alive) {
       alien.kill();
       this.health -= 50;
-      if (this.health <= 0) {
-        this.health = 0;
-        player.kill();
-      }
+      this.checkHealth()
     }
   }
 }
