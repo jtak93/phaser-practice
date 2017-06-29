@@ -26,6 +26,9 @@ export default class extends Phaser.State {
           type: 'bullet',
           level: 1
         },
+        abilities: [
+          { name: 'shield', duration: Phaser.Timer.SECOND * 2, coolDownTimer: 0, coolDownDuration: Phaser.Timer.SECOND * 8 }
+        ],
         maxHealth: 100,
         firingRateLevel: 1
       }
@@ -99,6 +102,12 @@ export default class extends Phaser.State {
 
     // Create Inputs
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.keyInputs = this.input.keyboard.addKeys({
+      'Q': Phaser.KeyCode.Q,
+      'W': Phaser.KeyCode.W,
+      'E': Phaser.KeyCode.E,
+      'P': Phaser.KeyCode.P
+    })
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     console.log(this.game)
   }

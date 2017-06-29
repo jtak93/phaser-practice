@@ -12,7 +12,7 @@ export default class extends Phaser.Sprite {
   update() {
     if (this.alive) {
       this.game.physics.arcade.overlap(this.game.bullets, this, this.bulletCollisionHandler, null, this.game);
-      if (this.game.time.now > this.firingTimer) {
+      if (this.game.time.now > this.firingTimer && this.game.player.alive) {
 
           this.fireBullet();
 

@@ -14,6 +14,8 @@ export default class extends Phaser.Sprite {
       type: playerStats.weapon.type,
       level: playerStats.weapon.level
     };
+    this.shield = false;
+    this.abilities = playerStats.abilities;
     this.maxHealth = playerStats.maxHealth;
     this.health = (playerStats.maxHealth) ? playerStats.maxHealth : 100;
     this.firingRateLevel = (playerStats.firingRateLevel) ? playerStats.firingRateLevel : 0;
@@ -69,9 +71,43 @@ export default class extends Phaser.Sprite {
 
         }
 
+        // Abilities
+        if (this.game.keyInputs.Q.isDown) {
+          this.useAbility(0);
+        }
+
+        if (this.game.keyInputs.W.isDown) {
+          console.log('using ability 2')
+        }
+
+        if (this.game.keyInputs.E.isDown) {
+          console.log('using ability 3')
+        }
+
         //  Run collision
         this.game.physics.arcade.overlap(this.game.alienBullets, this, this.alienBulletHitsPlayer, null, this);
         this.game.physics.arcade.overlap(this.game.aliens, this, this.alienHitsPlayer, null, this);
+    }
+  }
+
+  useAbility(abilityNumber) {
+    const ability = this.abilities[abilityNumber];
+    var test;
+    if(ability.name ==='shield') {
+      // check for cooldown
+      if (ability.coolDownTimer === 0) {
+        const duration = ability.duration
+        ability.coolDownTimer = ability.coolDownDuration;
+        this.shield = true;
+        const startCD = this.game.time.events.repeat(Phaser.Timer.SECOND * 0.1, 80, function(){
+          ability.coolDownTimer -= Phaser.Timer.SECOND * 0.1;
+        }, this);
+        const startShield = this.game.time.events.add(ability.duration, function(){
+          this.shield = false;
+        }, this);
+      } else {
+        console.log('ability on cd for', ability.coolDownTimer, 'seconds')
+      }
     }
   }
 
@@ -203,11 +239,15 @@ export default class extends Phaser.Sprite {
   alienBulletHitsPlayer (player, bullet) {
     // if alien hits player kill player and bullet
     if (player.alive) {
-      bullet.kill();
-      this.health -= 10;
-      if (this.health <= 0) {
-        this.health = 0;
-        player.kill();
+      if (this.shield) {
+        bullet.kill()
+      } else {
+        bullet.kill();
+        this.health -= 10;
+        if (this.health <= 0) {
+          this.health = 0;
+          player.kill();
+        }
       }
     }
   }
