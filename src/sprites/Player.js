@@ -109,15 +109,17 @@ export default class extends Phaser.Sprite {
 
   useAbility(abilityNumber) {
     const ability = this.abilities[abilityNumber];
-    if(ability.name ==='shield') {
+    if (ability.name ==='shield') {
       // check for cooldown
       if (ability.coolDownTimer <= 0) {
         const duration = ability.duration
         ability.coolDownTimer = ability.coolDownDuration;
         this.shield = true;
+        // move shield to player before reviving the sprite
+        this.shieldRef.reset(this.position.x, this.position.y)
         this.shieldRef.revive();
-        const startCD = this.game.time.events.repeat(Phaser.Timer.SECOND * 0.5, ability.coolDownDuration / 1000 * 2, function(){
-          ability.coolDownTimer -= Phaser.Timer.SECOND * 0.5;
+        const startCD = this.game.time.events.repeat(Phaser.Timer.SECOND, ability.coolDownDuration / 1000, function(){
+          ability.coolDownTimer -= Phaser.Timer.SECOND;
         }, this);
         const startShield = this.game.time.events.add(ability.duration, function(){
           this.shield = false;
@@ -125,7 +127,7 @@ export default class extends Phaser.Sprite {
           this.shieldInactive = true;
         }, this);
       } else {
-        console.log('ability on cd for', ability.coolDownTimer, 'seconds')
+        console.log('ability on cd for', ability.coolDownTimer/1000, 'seconds')
       }
     }
   }

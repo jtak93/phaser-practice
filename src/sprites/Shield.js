@@ -13,7 +13,14 @@ export default class extends Phaser.Sprite {
 
   update() {
     if (this.alive) {
-      this.reset(this.host.x, this.host.y)
+      // interpolate for movement
+      if ( this.host.body.velocity.x || this.host.body.velocity.y ) {
+        const xVelocity = this.host.body.velocity.x;
+        const yVelocity = this.host.body.velocity.y;
+        this.reset(this.host.x + (xVelocity/50), this.host.y + (yVelocity/50))
+      } else {
+        this.reset(this.host.x, this.host.y)
+      }
     }
   }
 
