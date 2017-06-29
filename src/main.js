@@ -13,11 +13,7 @@ import PVPState from './states/PVP'
 import PVPSplashState from './states/PVPSplash'
 
 import config from './config'
-import socket from './sockets/socket';
 
-console.log('socket:', socket)
-const data = { my: 'test'}
-socket.emit('test', { my: 'test'})
 
 class Game extends Phaser.Game {
   constructor () {
