@@ -1,3 +1,4 @@
+
 import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
@@ -5,12 +6,11 @@ export default class extends Phaser.Sprite {
     super(game, x, y, asset)
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.firingTimer = this.game.time.now;
+    this.firingTimer = this.game.time.now + Phaser.Math.random(0, 10000);
   }
 
   update() {
     if (this.alive) {
-
       this.game.physics.arcade.overlap(this.game.bullets, this, this.bulletCollisionHandler, null, this.game);
       if (this.game.time.now > this.firingTimer) {
 

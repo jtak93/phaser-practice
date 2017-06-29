@@ -95,6 +95,7 @@ export default class extends Phaser.State {
     // Create Inputs
     this.cursors = this.input.keyboard.createCursorKeys();
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    console.log(this.game)
   }
 
   render () {
