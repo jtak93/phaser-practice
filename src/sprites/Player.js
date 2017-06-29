@@ -179,7 +179,6 @@ export default class extends Phaser.Sprite {
     if (player.alive) {
       bullet.kill();
       this.health -= 10;
-      console.log('current hp', this.health)
       if (this.health <= 0) {
         this.health = 0;
         player.kill();
@@ -191,11 +190,9 @@ export default class extends Phaser.Sprite {
     if (player.alive) {
       alien.kill();
       this.health -= 50;
-      console.log('current hp', this.health)
       if (this.health <= 0) {
         this.health = 0;
         player.kill();
-        console.log('reset health to 0', this.health)
       }
     }
   }

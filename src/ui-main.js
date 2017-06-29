@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import config from './config';
 import { Progress, Button } from 'semantic-ui-react'
 import MainMenu from './components/MainMenu'
+import LevelSelectionContainer from './containers/LevelSelectionContainer'
 
 const style = {
     width: config.gameWidth,
@@ -15,19 +16,20 @@ class UIMain extends Component {
 
         this.state = {
             displayMainMenu: true,
+            displayLevelSelection: false,
             display: 'startScreen',
         }
         this.handlePlayGame = this.handlePlayGame.bind(this);
         this.handleCreateRoom = this.handleCreateRoom.bind(this);
         this.handleJoinRoom = this.handleJoinRoom.bind(this);
     }
-    
+
     handlePlayGame() {
         this.setState({
           display: 'Level1',
-          displayMainMenu: false
+          displayMainMenu: false,
+          displayLevelSelection: true,
         })
-        this.props.game.state.start('Splash')
     }
 
     handleCreateRoom() {
@@ -46,11 +48,15 @@ class UIMain extends Component {
         console.log('clicked join room')
     }
 
+
     render() {
         const isMainMenu = this.state.displayMainMenu;
+        const isLevelSelection = this.state.displayLevelSelection;
         let menu = null;
         if (isMainMenu) {
           menu = <MainMenu onPlayGame={this.handlePlayGame} onCreateRoom={this.handleCreateRoom} onJoinRoom={this.handleJoinRoom}/>
+        } else if (isLevelSelection) {
+          menu = <LevelSelectionContainer game={this.props.game} mainUI={this}/>
         } else {
           // TODO: add more ui
           menu = <h1>hello</h1>
