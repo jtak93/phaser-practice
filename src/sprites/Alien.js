@@ -9,6 +9,7 @@ export default class extends Phaser.Sprite {
     this.firingStraightTimer = this.game.time.now;
     this.firingTimer = this.game.time.now;
     this.health = health ? health : 1;
+    this.xVelocity = xVelocity;
     this.body.velocity.x = xVelocity;
     this.body.velocity.y = yVelocity;
     this.body.drag.x = xDrag;
@@ -17,6 +18,10 @@ export default class extends Phaser.Sprite {
 
   update() {
     if (this.alive) {
+      if (this.body.velocity.x === 0) {
+        this.body.velocity.x = this.xVelocity;
+        this.xVelocity = -(this.xVelocity);
+      }
       this.angle = this.game.math.radToDeg(Math.atan2(this.body.velocity.x, this.body.velocity.y));
       this.game.physics.arcade.overlap(this, this.game.player, this.alienHitsPlayer, null, this);
       this.game.physics.arcade.overlap(this, this.game.bullets, this.bulletHitsAlien, null, this);
@@ -85,7 +90,7 @@ export default class extends Phaser.Sprite {
       this.alienBullet.reset(shooter.body.x, shooter.body.y + 10);
       this.alienBullet.damage = this.damage;
       this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player, 120);
-      this.firingTimer = this.game.time.now + this.game.rnd.integerInRange(2000, 4000);
+      this.firingTimer = this.game.time.now + this.game.rnd.integerInRange(4000, 6000);
     }
   }
 

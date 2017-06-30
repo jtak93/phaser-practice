@@ -19,7 +19,7 @@ export default class Aliens extends Phaser.Group {
   }
 
   createWave (size, health) {
-    const ENEMY_SPEED = this.game.rnd.integerInRange(100, 200);
+    const ENEMY_SPEED = this.game.rnd.integerInRange(50, 100);
     const ENEMY_HEALTH = health
     const waveSize = size;
     const y = -20;
