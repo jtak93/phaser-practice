@@ -22,3 +22,12 @@ body {
 .MainMenuBtn {
   margin-top: 100px !important;
 }
+
+.InGameMenuBtn {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.InGameMenu {
+  margin-top: 10px;
+}

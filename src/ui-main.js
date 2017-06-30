@@ -3,6 +3,7 @@ import config from './config';
 import { Progress, Button } from 'semantic-ui-react'
 import MainMenu from './components/MainMenu'
 import LevelSelectionContainer from './containers/LevelSelectionContainer'
+import InGameMenuContainer from './containers/InGameMenuContainer'
 
 const style = {
     width: config.gameWidth,
@@ -15,9 +16,7 @@ class UIMain extends Component {
         super(props)
 
         this.state = {
-            displayMainMenu: true,
-            displayLevelSelection: false,
-            display: 'startScreen',
+            display: 'main',
         }
         this.handlePlayGame = this.handlePlayGame.bind(this);
         this.handleCreateRoom = this.handleCreateRoom.bind(this);
@@ -26,9 +25,7 @@ class UIMain extends Component {
 
     handlePlayGame() {
         this.setState({
-          display: 'Level1',
-          displayMainMenu: false,
-          displayLevelSelection: true,
+          display: 'levels',
         })
     }
 
@@ -43,7 +40,6 @@ class UIMain extends Component {
     handleJoinRoom() {
         this.setState({
           display: 'Join Room',
-          displayMainMenu: false
         })
         console.log('clicked join room')
     }
@@ -52,11 +48,14 @@ class UIMain extends Component {
     render() {
         const isMainMenu = this.state.displayMainMenu;
         const isLevelSelection = this.state.displayLevelSelection;
+        const display = this.state.display;
         let menu = null;
-        if (isMainMenu) {
+        if (display === 'main') {
           menu = <MainMenu onPlayGame={this.handlePlayGame} onCreateRoom={this.handleCreateRoom} onJoinRoom={this.handleJoinRoom}/>
-        } else if (isLevelSelection) {
+        } else if (display === 'levels') {
           menu = <LevelSelectionContainer game={this.props.game} mainUI={this}/>
+        } else if (display === 'play') {
+          menu = <InGameMenuContainer game={this.props.game} mainUI={this}/>
         } else {
           // TODO: add more ui
           menu = <h1>hello</h1>

@@ -13,7 +13,8 @@ export default class extends Phaser.Sprite {
     this.bulletTime = 0;
     this.weapon = {
       type: playerStats.weapon.type,
-      level: playerStats.weapon.level
+      level: playerStats.weapon.level,
+      damage: 50
     };
     this.shield = false;
     this.abilities = playerStats.abilities;
@@ -154,6 +155,8 @@ export default class extends Phaser.Sprite {
           this.bullet = this.game.bullets.getFirstExists(false);
 
           if (this.bullet) {
+            // Set bullet damage
+            this.bullet.damage = this.weapon.damage
             //  And fire it
             this.bullet.reset(this.x, this.y + 10);
             this.bullet.body.velocity.y = -400;

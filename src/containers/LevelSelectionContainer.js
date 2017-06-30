@@ -14,17 +14,18 @@ class LevelSelectionContainer extends Component {
     }
 
     handleBackToMainMenu() {
+      console.log('back to main menu')
       this.props.mainUI.setState({
-        displayMainMenu: true,
-        displayLevelSelection: false,
+        display: 'main'
       })
     }
 
     handleStart(level) {
-      this.props.game.state.start(`Level${level}Splash`)
+      console.log('start level')
       this.props.mainUI.setState({
-        displayLevelSelection: false,
+        display: 'play',
       })
+      this.props.game.state.start(`Level${level}Splash`)
     }
 
 
@@ -33,6 +34,7 @@ class LevelSelectionContainer extends Component {
         <LevelSelection
           onBackToMainMenu={this.handleBackToMainMenu}
           onStart={this.handleStart}
+          game={this.props.game}
         />
       )
     }

@@ -5,9 +5,7 @@ const LevelSelection = (props) => {
   return (
     <div>
       <Container fluid>
-        <Button onClick={props.onBackToMainMenu}>
-          <Image src='assets/images/back-arrow.png' />
-        </Button>
+        <Button onClick={props.onBackToMainMenu} icon='reply' />
       </Container>
       <Divider hidden />
       <Grid columns={3}>

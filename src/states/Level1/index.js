@@ -92,7 +92,7 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.aliens)
     // Make aliens with rows, columns, and hp
-    this.aliens.createAlienBlock(3, 10, 100)
+    this.aliens.createAlienBlock(2, 12, 100)
 
     this.alienBullets = new AlienBullets({
       game: this,
@@ -109,7 +109,6 @@ export default class extends Phaser.State {
       'P': Phaser.KeyCode.P
     })
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    console.log(this.game)
   }
 
   render () {
