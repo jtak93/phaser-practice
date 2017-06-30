@@ -18,10 +18,6 @@ export default class extends Phaser.Sprite {
 
   update() {
     if (this.alive) {
-      if (this.body.velocity.x === 0) {
-        this.body.velocity.x = this.xVelocity;
-        this.xVelocity = -(this.xVelocity);
-      }
       this.angle = this.game.math.radToDeg(Math.atan2(this.body.velocity.x, this.body.velocity.y));
       this.game.physics.arcade.overlap(this, this.game.player, this.alienHitsPlayer, null, this);
       this.game.physics.arcade.overlap(this, this.game.bullets, this.bulletHitsAlien, null, this);

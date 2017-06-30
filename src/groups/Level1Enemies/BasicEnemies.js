@@ -8,6 +8,7 @@ export default class Aliens extends Phaser.Group {
     this.livingAliens = [];
     this.setAll('outOfBoundsKill', true);
     this.setAll('checkWorldBounds', true);
+    this.waveNumber = 1;
     this.createWave(30, 2);
   }
 
@@ -19,25 +20,26 @@ export default class Aliens extends Phaser.Group {
   }
 
   createWave (size, health) {
-    const ENEMY_SPEED = this.game.rnd.integerInRange(50, 100);
-    const ENEMY_HEALTH = health
     const waveSize = size;
-    const y = -20;
-    const WaveCreation = this.game.time.events.repeat(Phaser.Timer.SECOND / 2, waveSize, function(){
-      let x = this.game.rnd.integerInRange(100, this.game.world.width - 100);
-      const enemy = new Alien({
-        game: this.game,
-        x: x,
-        y: y,
-        asset: 'invader',
-        health: ENEMY_HEALTH,
-        xVelocity: this.game.rnd.integerInRange(-200, 200),
-        yVelocity: ENEMY_SPEED,
-        xDrag: 100
-      });
-      this.game.add.existing(enemy);
-    }, this);
+    const WaveCreation = this.game.time.events.repeat(Phaser.Timer.SECOND / 2, waveSize, this.createAlien.bind(this, health), this);
 
+  }
+  createAlien( health) {
+    const ENEMY_SPEED = this.game.rnd.integerInRange(50, 100);
+    let x = this.game.rnd.integerInRange(100, this.game.world.width - 100);
+    const y = -20;
+    const ENEMY_HEALTH = health
+    const enemy = new Alien({
+      game: this.game,
+      x: x,
+      y: y,
+      asset: 'invader',
+      health: ENEMY_HEALTH,
+      xVelocity: this.game.rnd.integerInRange(-400, 400),
+      yVelocity: ENEMY_SPEED,
+      xDrag: 100
+    });
+    this.add(enemy);
   }
 
   bulletCollisionHandler (bullet, alien) {
