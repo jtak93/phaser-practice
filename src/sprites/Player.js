@@ -14,7 +14,7 @@ export default class extends Phaser.Sprite {
     this.weapon = {
       type: playerStats.weapon.type,
       level: playerStats.weapon.level,
-      damage: 50
+      damage: 1
     };
     this.shield = false;
     this.abilities = playerStats.abilities;
@@ -267,7 +267,7 @@ export default class extends Phaser.Sprite {
         bullet.kill()
       } else {
         bullet.kill();
-        this.health -= 10;
+        this.health -= bullet.damage;
         this.checkHealth()
       }
     }
@@ -283,7 +283,7 @@ export default class extends Phaser.Sprite {
   alienHitsPlayer (player, alien) {
     if (player.alive) {
       alien.kill();
-      this.health -= 50;
+      this.health -= 10;
       this.checkHealth()
     }
   }

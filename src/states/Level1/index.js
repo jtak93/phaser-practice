@@ -5,6 +5,7 @@ import Starfield from '../../tilesprites/Starfield'
 import AlienBullets from '../../groups/AlienBullets'
 import Bullets from '../../groups/Bullets'
 import Aliens from '../../groups/Aliens'
+import BasicEnemies from '../../groups/Level1Enemies/BasicEnemies'
 import Lasers from '../../groups/Lasers'
 import HealthBar from '../../plugins/HealthBar'
 
@@ -29,7 +30,7 @@ export default class extends Phaser.State {
         abilities: [
           { name: 'shield', duration: Phaser.Timer.SECOND * 2, coolDownTimer: 0, coolDownDuration: Phaser.Timer.SECOND * 5 }
         ],
-        maxHealth: 100,
+        maxHealth: 10,
         firingRateLevel: 1
       }
     })
@@ -84,15 +85,15 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.lasers)
 
-    this.aliens = new Aliens({
+    this.basicEnemies = new BasicEnemies({
       game: this,
       enableBody: true,
       physicsBodyType: Phaser.Physics.ARCADE
     })
+    this.basicEnemy = this.basicEnemies.getTop()
 
-    this.game.add.existing(this.aliens)
+    this.game.add.existing(this.basicEnemies)
     // Make aliens with rows, columns, and hp
-    this.aliens.createAlienBlock(2, 12, 100)
 
     this.alienBullets = new AlienBullets({
       game: this,
