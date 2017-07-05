@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from './config';
 import { Progress, Button } from 'semantic-ui-react'
+import LoginMenuContainer from './containers/LoginMenuContainer'
 import MainMenuContainer from './containers/MainMenuContainer'
 import LevelSelectionContainer from './containers/LevelSelectionContainer'
 import InGameMenuContainer from './containers/InGameMenuContainer'
@@ -18,6 +19,7 @@ class UIMain extends Component {
 
         this.state = {
             display: 'main',
+            user: null,
         }
     }
 
@@ -28,7 +30,9 @@ class UIMain extends Component {
         const display = this.state.display;
         let menu = null;
         // TODO: refactor this into a switch statement or something better
-        if (display === 'main') {
+        if (!this.state.user) {
+          menu = <LoginMenuContainer />
+        } else if (display === 'main') {
           menu = <MainMenuContainer game={this.props.game} mainUI={this}/>
         } else if (display === 'levels') {
           menu = <LevelSelectionContainer game={this.props.game} mainUI={this}/>

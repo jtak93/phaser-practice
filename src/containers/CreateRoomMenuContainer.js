@@ -10,28 +10,42 @@ class CreateRoomMenuContainer extends Component {
         this.state = {
         }
         this.handleBackToMainMenu = this.handleBackToMainMenu.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleCreateRoom = this.handleCreateRoom.bind(this);
     }
 
     handleBackToMainMenu() {
-      console.log('back to main menu')
       this.props.mainUI.setState({
         display: 'main'
       })
     }
 
-    handleStart(level) {
-      console.log('start level')
-      this.props.mainUI.setState({
-        display: 'play',
+    handleNameChange(evt, data) {
+      const name = data.value;
+      this.setState({
+        name
       })
-      this.props.game.state.start(`Level${level}Splash`)
     }
 
+    handlePasswordChange(evt, data) {
+      const password = data.value;
+      this.setState({
+        password
+      })
+    }
+
+    handleCreateRoom() {
+      console.log('create room clicked')
+    }
 
     render() {
       return(
         <CreateRoomMenu
           onBackToMainMenu={this.handleBackToMainMenu}
+          onNameChange={this.handleNameChange}
+          onPasswordChange={this.handlePasswordChange}
+          onCreateRoom={this.handleCreateRoom}
           game={this.props.game}
         />
       )
