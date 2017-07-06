@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import config from './config';
 import { Progress, Button } from 'semantic-ui-react'
 import LoginMenuContainer from './containers/LoginMenuContainer'
+import SignupContainer from './containers/SignupContainer'
 import MainMenuContainer from './containers/MainMenuContainer'
 import LevelSelectionContainer from './containers/LevelSelectionContainer'
 import InGameMenuContainer from './containers/InGameMenuContainer'
@@ -12,13 +13,13 @@ const style = {
     height: config.gameHeight
 }
 
-class UIMain extends Component {
+class MainUI extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            display: 'main',
+            display: 'login',
             user: null,
         }
     }
@@ -30,8 +31,10 @@ class UIMain extends Component {
         const display = this.state.display;
         let menu = null;
         // TODO: refactor this into a switch statement or something better
-        if (!this.state.user) {
-          menu = <LoginMenuContainer />
+        if (display === 'login') {
+          menu = <LoginMenuContainer game={this.props.game} mainUI={this} />
+        } else if (display === 'signup') {
+          menu = <SignupContainer game={this.props.game} mainUI={this}/>
         } else if (display === 'main') {
           menu = <MainMenuContainer game={this.props.game} mainUI={this}/>
         } else if (display === 'levels') {
@@ -52,4 +55,4 @@ class UIMain extends Component {
     }
 }
 
-export default UIMain;
+export default MainUI;

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Button, Container, Divider, Input } from 'semantic-ui-react'
 
-const LoginMenu = (props) => {
+const SignupMenu = (props) => {
   return (
     <div>
       <Divider hidden />
       <Divider hidden />
       <Container textAlign='center' fluid>
         <h1>Title of Game</h1>
-        <h1>Login</h1>
+        <h1>Signup</h1>
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
@@ -16,23 +16,31 @@ const LoginMenu = (props) => {
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
-        <Input onChange={props.onPasswordChange} type='password' placeholder='Password'/>
+        <Input onChange={props.onEmailChange} placeholder='Email'/>
+      </Container>
+      <Divider hidden />
+      <Container textAlign='center' fluid>
+        <Input onChange={props.onPasswordChange} placeholder='Password'/>
+      </Container>
+      <Divider hidden />
+      <Container textAlign='center' fluid>
+        <Input onChange={props.onPasswordConfirmChange} placeholder='Confirm Password'/>
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
         <Button
-          content='Login'/>
+          content='Signup'/>
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
-        <h4>Don&rsquo;t have an account?</h4>
+        <h4>Already have an account?</h4>
       </Container>
       <Container textAlign='center' fluid>
         <Button
-          onClick={props.onSignup}
-          content='Sign Up'/>
+          onClick={props.backToLogin}
+          content='Go To Login'/>
       </Container>
     </div>
   )
 }
-export default LoginMenu;
+export default SignupMenu;

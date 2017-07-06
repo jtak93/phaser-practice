@@ -3,7 +3,7 @@ import 'p2'
 import Phaser from 'phaser'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UIMain from './ui-main';
+import MainUI from './main-ui';
 
 import BootState from './states/Boot'
 import Level1SplashState from './states/Level1/Splash'
@@ -37,4 +37,4 @@ class Game extends Phaser.Game {
 window.game = new Game()
 
 // inject React DOM
-ReactDOM.render(<UIMain game={window.game}/>, document.getElementById('content'));
+ReactDOM.render(<MainUI game={window.game}/>, document.getElementById('content'));
