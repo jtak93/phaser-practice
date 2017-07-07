@@ -3,6 +3,12 @@ body {
     padding: 0;
 }
 
+#content {
+  margin: 0 auto;
+  width: 50%;
+  min-width: 600px;
+}
+
 .ui-main {
   color: white;
   position: absolute;

@@ -20,15 +20,16 @@ const SignupMenu = (props) => {
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
-        <Input onChange={props.onPasswordChange} placeholder='Password'/>
+        <Input onChange={props.onPasswordChange} placeholder='Password' type='password'/>
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
-        <Input onChange={props.onPasswordConfirmChange} placeholder='Confirm Password'/>
+        <Input onChange={props.onPasswordConfirmChange} placeholder='Confirm Password' type='password'/>
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>
         <Button
+          onClick={props.onSignup}
           content='Signup'/>
       </Container>
       <Divider hidden />
