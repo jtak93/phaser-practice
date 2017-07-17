@@ -21,6 +21,7 @@ const LoginMenu = (props) => {
       <Divider hidden />
       <Container textAlign='center' fluid>
         <Button
+          onClick={props.onLogin}
           content='Login'/>
       </Container>
       <Divider hidden />

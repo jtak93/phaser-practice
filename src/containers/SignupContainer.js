@@ -43,7 +43,6 @@ class SignupContainer extends Component {
     }
 
     handleSignup() {
-      console.log('sign up')
       axios.post('http://localhost:4000/auth/register', {
         username: this.state.username,
         password: this.state.password,

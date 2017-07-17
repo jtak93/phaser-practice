@@ -86,7 +86,7 @@ export default class extends Phaser.Sprite {
       this.alienBullet.reset(shooter.body.x, shooter.body.y + 10);
       this.alienBullet.damage = this.damage;
       this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player, 120);
-      this.firingTimer = this.game.time.now + this.game.rnd.integerInRange(4000, 6000);
+      this.firingTimer = this.game.time.now + this.game.rnd.integerInRange(2000, 6000);
     }
   }
 

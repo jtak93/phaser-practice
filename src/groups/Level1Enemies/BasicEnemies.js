@@ -24,6 +24,7 @@ export default class Aliens extends Phaser.Group {
     const WaveCreation = this.game.time.events.repeat(Phaser.Timer.SECOND / 2, waveSize, this.createAlien.bind(this, health), this);
 
   }
+
   createAlien( health) {
     const ENEMY_SPEED = this.game.rnd.integerInRange(50, 100);
     let x = this.game.rnd.integerInRange(100, this.game.world.width - 100);
@@ -35,7 +36,7 @@ export default class Aliens extends Phaser.Group {
       y: y,
       asset: 'invader',
       health: ENEMY_HEALTH,
-      xVelocity: this.game.rnd.integerInRange(-400, 400),
+      xVelocity: this.game.rnd.integerInRange(-200, 200),
       yVelocity: ENEMY_SPEED,
       xDrag: 100
     });
