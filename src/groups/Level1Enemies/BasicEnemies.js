@@ -14,8 +14,11 @@ export default class Aliens extends Phaser.Group {
 
   update() {
     this.game.physics.arcade.overlap(this.game.bullets, this, this.bulletCollisionHandler, null, this.game);
+    this.game.physics.arcade.overlap(this.game.player, this, this.playerCollisionHandler, null, this.game);
     if (this.game.time.now > this.firingTimer) {
-        this.enemyFires();
+        if (this.game.player.alive) {
+          this.enemyFires();
+        }
     }
   }
 
@@ -25,7 +28,7 @@ export default class Aliens extends Phaser.Group {
 
   }
 
-  createAlien( health) {
+  createAlien(health) {
     const ENEMY_SPEED = this.game.rnd.integerInRange(50, 100);
     let x = this.game.rnd.integerInRange(100, this.game.world.width - 100);
     const y = -20;
@@ -52,6 +55,18 @@ export default class Aliens extends Phaser.Group {
 
   }
 
+  playerCollisionHandler (player, alien) {
+
+    // when player hits alien, kill alien and damage player
+    alien.kill()
+    console.log(player)
+    if (player.alive) {
+      player.health -= 10
+      if (player.health <= 0) player.kill()
+    }
+
+  }
+
   enemyFires() {
     this.livingAliens = [];
     this.alienBullet = this.game.alienBullets.getFirstExists(false);
@@ -65,7 +80,7 @@ export default class Aliens extends Phaser.Group {
       this.alienBullet.reset(shooter.body.x, shooter.body.y);
       this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player,120);
     }
-    this.firingTimer += this.game.time.now + 100;
+    this.firingTimer += 1000;
   }
 
 

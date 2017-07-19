@@ -266,8 +266,9 @@ export default class extends Phaser.Sprite {
       if (this.shield) {
         bullet.kill()
       } else {
+        // TODO: make bullet damage dynamic
         bullet.kill();
-        this.health -= bullet.damage;
+        this.health -= 1;
         this.checkHealth()
       }
     }
