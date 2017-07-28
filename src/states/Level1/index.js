@@ -98,7 +98,8 @@ export default class extends Phaser.State {
     this.alienBullets = new AlienBullets({
       game: this,
       enableBody: true,
-      physicsBodyType: Phaser.Physics.ARCADE
+      physicsBodyType: Phaser.Physics.ARCADE,
+      damage: 1
     })
 
     // Create Inputs
@@ -113,8 +114,8 @@ export default class extends Phaser.State {
   }
 
   render () {
-    if (__DEV__) {
-      this.game.debug.spriteInfo(this.player, 32, 32)
-    }
+    // if (__DEV__) {
+    //   this.game.debug.spriteInfo(this.player, 32, 32)
+    // }
   }
 }

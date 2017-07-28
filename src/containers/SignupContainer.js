@@ -6,6 +6,10 @@ class SignupContainer extends Component {
 
     constructor(props) {
       super(props)
+      this.state = {
+        errorMessage: '',
+        hideError: true
+      }
       this.handleUsernameChange = this.handleUsernameChange.bind(this);
       this.handleEmailChange = this.handleEmailChange.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -48,7 +52,17 @@ class SignupContainer extends Component {
         password: this.state.password,
         email: this.state.email,
       }).then(data => {
+        // TODO:save user data locally
+        this.props.mainUI.setState({
+          display: 'main'
+        })
         console.log(data)
+      }).catch(err => {
+        console.log(err.response)
+        this.setState({
+          errorMessage: err.response.data.message,
+          hideError: false
+        })
       })
     }
 
@@ -68,6 +82,8 @@ class SignupContainer extends Component {
           onPasswordConfirmChange={this.handlePasswordConfirmChange}
           onSignup={this.handleSignup}
           backToLogin={this.handleBackToLogin}
+          errorMessage={this.state.errorMessage}
+          hideError={this.state.hideError}
         />
       )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Container, Divider, Input } from 'semantic-ui-react'
+import { Grid, Button, Container, Divider, Message, Input } from 'semantic-ui-react'
 
 const SignupMenu = (props) => {
   return (
@@ -9,6 +9,10 @@ const SignupMenu = (props) => {
       <Container textAlign='center' fluid>
         <h1>Title of Game</h1>
         <h1>Signup</h1>
+      </Container>
+      <Divider hidden />
+      <Container textAlign='center' fluid>
+      <Message error hidden={props.hideError} content={props.errorMessage} />
       </Container>
       <Divider hidden />
       <Container textAlign='center' fluid>

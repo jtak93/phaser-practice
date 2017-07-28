@@ -30,9 +30,7 @@ class InGameMenuContainer extends Component {
   }
 
   handleMenuClick() {
-    console.log('hamburg menu clicked')
-    console.log('game', this.props.game)
-    this.props.game.paused = true;
+    this.togglePauseGame()
     this.setState({
       isPaused: !this.state.isPaused
     })
