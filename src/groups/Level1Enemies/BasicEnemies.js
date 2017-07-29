@@ -80,7 +80,7 @@ export default class Aliens extends Phaser.Group {
       this.alienBullet.reset(shooter.body.x, shooter.body.y);
       this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player,120);
     }
-    this.firingTimer += 1000;
+    this.firingTimer = this.game.time.now + 1000;
   }
 
 
