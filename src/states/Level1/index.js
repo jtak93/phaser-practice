@@ -1,4 +1,5 @@
 /* globals __DEV__ */
+import { mainUI } from '../../main'
 import Phaser from 'phaser'
 import Player from '../../sprites/Player'
 import Starfield from '../../tilesprites/Starfield'
@@ -36,6 +37,13 @@ export default class extends Phaser.State {
     })
 
     const player = this.game.add.existing(this.player)
+    // set event for player death
+    const deathTextStyles = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" }
+    player.events.onKilled.add(() => {
+      this.game.add.text(this.world.centerX - 75, this.world.centerY - 50, 'You Died.', deathTextStyles)
+      this.game.add.text(this.world.centerX - 175, this.world.centerY, 'Press Enter to continue.', deathTextStyles)
+
+    }, this)
 
 
     this.starfield = new Starfield({
@@ -47,7 +55,7 @@ export default class extends Phaser.State {
       key: 'starfield'
     })
 
-    // creat background and send to back
+    // create background and send to back
     this.game.add.existing(this.starfield)
     this.world.sendToBack(this.starfield)
 
@@ -108,9 +116,20 @@ export default class extends Phaser.State {
       'Q': Phaser.KeyCode.Q,
       'W': Phaser.KeyCode.W,
       'E': Phaser.KeyCode.E,
-      'P': Phaser.KeyCode.P
+      'P': Phaser.KeyCode.P,
+      'ENTER': Phaser.KeyCode.ENTER,
     })
     this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  }
+
+  update () {
+    if (!this.player.alive) {
+      if (this.keyInputs.ENTER.justUp) {
+        //TODO: need to make it so it goes back to level selection
+        // mainUI.setDisplay('levels')
+        this.game.state.start('Level1Splash')
+      }
+    }
   }
 
   render () {

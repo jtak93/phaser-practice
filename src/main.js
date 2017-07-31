@@ -37,4 +37,4 @@ class Game extends Phaser.Game {
 window.game = new Game()
 
 // inject React DOM
-ReactDOM.render(<MainUI game={window.game}/>, document.getElementById('content'));
+export const mainUI = ReactDOM.render(<MainUI game={window.game}/>, document.getElementById('content'));

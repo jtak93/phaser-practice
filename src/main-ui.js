@@ -16,14 +16,21 @@ const style = {
 class MainUI extends Component {
 
     constructor(props) {
-        super(props)
+      super(props)
 
-        this.state = {
-            display: 'login',
-            user: null,
-        }
+      this.state = {
+          display: 'play',
+          user: null,
+      }
+
+      this.setDisplay = this.setDisplay.bind(this)
     }
 
+    setDisplay(display) {
+      this.setState({
+        display
+      })
+    }
 
     render() {
         const isMainMenu = this.state.displayMainMenu;

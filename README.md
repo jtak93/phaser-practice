@@ -1,5 +1,15 @@
 # Phaser Practice Invaders
 
+##TODO:
+- Fix and polish authhentication/authorization
+- Add level up and experience gain/ monetary systems
+- Create new abilities/skills
+- Create new levels and new enemy mobs/bosses
+- Smooth out UI
+
+## IceBox for the future
+- Realtime multiplayer battle with chat
+
 
 ## Features
 - ESLINT with JavaScript Standard Style configuration

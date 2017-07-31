@@ -33,6 +33,7 @@ export default class extends Phaser.Sprite {
   }
 
   update () {
+
     if (this.alive) {
         // if shielded display shield
         if (this.shield && this.shieldInActive) {
