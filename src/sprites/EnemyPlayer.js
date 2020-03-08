@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 
 export default class extends Phaser.Sprite {
   constructor ({
@@ -27,7 +27,6 @@ export default class extends Phaser.Sprite {
         if (this.game.lasers) this.game.lasers.align
         //  Reset the player, then check for movement keys
         this.body.velocity.setTo(0, 0);
-
         if (this.game.cursors.left.isDown) {
             // Limit left side to bounds
             if (this.body.position.x < this.game.world.bounds.x) {

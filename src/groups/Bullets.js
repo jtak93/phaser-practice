@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 
 export default class Bullets extends Phaser.Group {
   constructor ({ game, parent, name, addToStage, enableBody, physicsBodyType }) {

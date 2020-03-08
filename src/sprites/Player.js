@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import Shield from './Shield'
 
 export default class extends Phaser.Sprite {
@@ -11,6 +11,7 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
+    console.log(this.game.physics)
     this.weapon = {
       type: playerStats.weapon.type,
       level: playerStats.weapon.level,
@@ -47,14 +48,14 @@ export default class extends Phaser.Sprite {
         //  Reset the player, then check for movement keys
         this.body.velocity.setTo(0, 0);
 
-        if (this.game.cursors.left.isDown) {
+        if (this.game.state.getCurrentState().cursors.left.isDown) {
             // Limit left side to bounds
             if (this.body.position.x < this.game.world.bounds.x) {
                 this.body.velocity.x = 0
             } else {
                 this.body.velocity.x = -200;
             }
-        } else if (this.game.cursors.right.isDown) {
+        } else if (this.game.state.getCurrentState().cursors.right.isDown) {
             // Limit right side to bounds
             if (this.body.position.x > this.game.world.bounds.width - this.body.width) {
                 this.body.velocity.x = 0
@@ -63,14 +64,14 @@ export default class extends Phaser.Sprite {
             }
         }
 
-        if (this.game.cursors.up.isDown) {
+        if (this.game.state.getCurrentState().cursors.up.isDown) {
           // Limit top side to bounds
           if (this.body.position.y < this.game.world.bounds.y + this.game.world.bounds.height * 0.1) {
               this.body.velocity.y = 0
           } else {
               this.body.velocity.y = -200;
           }
-        } else if (this.game.cursors.down.isDown) {
+        } else if (this.game.state.getCurrentState().cursors.down.isDown) {
           // Limit bottom side to bounds
           if (this.body.position.y > this.game.world.bounds.height * 0.925 - this.body.height) {
               this.body.velocity.y = 0
@@ -80,7 +81,7 @@ export default class extends Phaser.Sprite {
         }
 
         //  Firing?
-        if (this.game.fireButton.isDown) {
+        if (this.game.state.getCurrentState().fireButton.isDown) {
             // check weapon type
             if (this.weapon.type === 'bullet') {
               this.fireBullet();
@@ -91,21 +92,21 @@ export default class extends Phaser.Sprite {
         }
 
         // Abilities
-        if (this.game.keyInputs.Q.isDown) {
+        if (this.game.state.getCurrentState().keyInputs.Q.isDown) {
           this.useAbility(0);
         }
 
-        if (this.game.keyInputs.W.isDown) {
+        if (this.game.state.getCurrentState().keyInputs.W.isDown) {
           console.log('using ability 2')
         }
 
-        if (this.game.keyInputs.E.isDown) {
+        if (this.game.state.getCurrentState().keyInputs.E.isDown) {
           console.log('using ability 3')
         }
 
         //  Run collision
-        this.game.physics.arcade.overlap(this.game.alienBullets, this, this.alienBulletHitsPlayer, null, this);
-        this.game.physics.arcade.overlap(this.game.aliens, this, this.alienHitsPlayer, null, this);
+      this.game.physics.arcade.overlap(this.game.state.getCurrentState().alienBullets, this, this.alienBulletHitsPlayer, null, this);
+      this.game.physics.arcade.overlap(this.game.state.getCurrentState().aliens, this, this.alienHitsPlayer, null, this);
     }
   }
 
@@ -153,7 +154,7 @@ export default class extends Phaser.Sprite {
     if (this.game.time.now > this.bulletTime) {
         //  Grab the first bullet we can from the pool
         if (this.weapon.level === 1) {
-          this.bullet = this.game.bullets.getFirstExists(false);
+          this.bullet = this.game.state.getCurrentState().bullets.getFirstExists(false);
 
           if (this.bullet) {
             // Set bullet damage
@@ -263,6 +264,7 @@ export default class extends Phaser.Sprite {
 
   alienBulletHitsPlayer (player, bullet) {
     // if alien hits player kill player and bullet
+    console.log("bulet hit:", player)
     if (player.alive) {
       if (this.shield) {
         bullet.kill()

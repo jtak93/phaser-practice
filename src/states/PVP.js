@@ -1,5 +1,5 @@
 /* globals __DEV__ */
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import Player from '../sprites/Player'
 import EnemyPlayer from '../sprites/EnemyPlayer'
 import Starfield from '../tilesprites/Starfield'
@@ -15,7 +15,7 @@ export default class extends Phaser.State {
 
     // Create Player 1 Ship
     this.player1 = new Player({
-      game: this,
+      game: this.game,
       x: this.world.centerX,
       y: this.world.centerY + 200,
       asset: 'player1',
@@ -28,7 +28,7 @@ export default class extends Phaser.State {
 
     // Create Player 2 Ship
     this.player2 = new EnemyPlayer({
-      game: this,
+      game: this.game,
       x: this.world.centerX,
       y: this.world.centerY - 100,
       asset: 'player2',
@@ -40,7 +40,7 @@ export default class extends Phaser.State {
     this.game.add.existing(this.player2)
 
     this.starfield = new Starfield({
-      game: this,
+      game: this.game,
       x: 0,
       y: 0,
       width: this.world.width,

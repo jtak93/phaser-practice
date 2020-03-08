@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import Alien from '../sprites/Alien'
 
 export default class Aliens extends Phaser.Group {

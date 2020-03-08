@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 
 export default class Starfield extends Phaser.TileSprite {
   constructor ({ game, x, y, width, height, key, frame }) {

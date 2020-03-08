@@ -1,5 +1,5 @@
 
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 
 export default class extends Phaser.Sprite {
   constructor ({ game, x, y, asset, health, xVelocity, yVelocity, xDrag}) {
@@ -19,15 +19,16 @@ export default class extends Phaser.Sprite {
   update() {
     if (this.alive) {
       this.angle = this.game.math.radToDeg(Math.atan2(this.body.velocity.x, this.body.velocity.y));
-      this.game.physics.arcade.overlap(this, this.game.player, this.alienHitsPlayer, null, this);
-      this.game.physics.arcade.overlap(this, this.game.bullets, this.bulletHitsAlien, null, this);
-      if (this.game.player.alive && this.game.time.now > this.firingStraightTimer) {
+      this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().player, this.alienHitsPlayer, null, this);
+      this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().bullets, this.bulletHitsAlien, null, this);
+      console.log(this.game)
+      if (this.game.state.getCurrentState().player.alive && this.game.time.now > this.firingStraightTimer) {
 
           this.fireStraightBullet();
 
       }
 
-      if (this.game.player.alive && this.game.time.now > this.firingTimer) {
+      if (this.game.state.getCurrentState().player.alive && this.game.time.now > this.firingTimer) {
 
           this.fireBulletToPlayer();
 
@@ -69,7 +70,7 @@ export default class extends Phaser.Sprite {
   }
 
   fireStraightBullet() {
-    this.alienBullet = this.game.alienBullets.getFirstExists(false);
+    this.alienBullet = this.game.state.getCurrentState().alienBullets.getFirstExists(false);
     if (this.alienBullet) {
       let shooter = this;
       this.alienBullet.reset(shooter.body.x, shooter.body.y + 10);
@@ -80,12 +81,12 @@ export default class extends Phaser.Sprite {
   }
 
   fireBulletToPlayer() {
-    this.alienBullet = this.game.alienBullets.getFirstExists(false);
+    this.alienBullet = this.game.state.getCurrentState().alienBullets.getFirstExists(false);
     if (this.alienBullet) {
       let shooter = this;
       this.alienBullet.reset(shooter.body.x, shooter.body.y + 10);
       this.alienBullet.damage = this.damage;
-      this.game.physics.arcade.moveToObject(this.alienBullet, this.game.player, 120);
+      this.game.physics.arcade.moveToObject(this.alienBullet, this.game.state.getCurrentState().player, 120);
       this.firingTimer = this.game.time.now + this.game.rnd.integerInRange(2000, 6000);
     }
   }

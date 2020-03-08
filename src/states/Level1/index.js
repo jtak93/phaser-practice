@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import { mainUI } from '../../main'
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import Player from '../../sprites/Player'
 import Starfield from '../../tilesprites/Starfield'
 import AlienBullets from '../../groups/AlienBullets'
@@ -19,7 +19,7 @@ export default class extends Phaser.State {
 
     // Create Player Ship
     this.player = new Player({
-      game: this,
+      game: this.game,
       x: this.world.centerX,
       y: this.world.centerY + 150,
       asset: 'player',
@@ -47,7 +47,7 @@ export default class extends Phaser.State {
 
 
     this.starfield = new Starfield({
-      game: this,
+      game: this.game,
       x: 0,
       y: 0,
       width: this.world.width,
@@ -61,7 +61,7 @@ export default class extends Phaser.State {
 
     // Player bullets
     this.bullets = new Bullets({
-      game: this,
+      game: this.game,
       enableBody: true,
       physicsBodyType: Phaser.Physics.ARCADE
     })
@@ -86,7 +86,7 @@ export default class extends Phaser.State {
     this.game.add.existing(this.healthBar)
 
     this.lasers = new Lasers({
-      game: this,
+      game: this.game,
       enableBody: true,
       physicsBodyType: Phaser.Physics.ARCADE
     })
@@ -94,7 +94,7 @@ export default class extends Phaser.State {
     this.game.add.existing(this.lasers)
 
     this.basicEnemies = new BasicEnemies({
-      game: this,
+      game: this.game,
       enableBody: true,
       physicsBodyType: Phaser.Physics.ARCADE
     })
@@ -104,7 +104,7 @@ export default class extends Phaser.State {
     // Make aliens with rows, columns, and hp
 
     this.alienBullets = new AlienBullets({
-      game: this,
+      game: this.game,
       enableBody: true,
       physicsBodyType: Phaser.Physics.ARCADE,
       damage: 1

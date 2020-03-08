@@ -1,6 +1,6 @@
 import 'pixi'
 import 'p2'
-import Phaser from 'phaser'
+import Phaser from 'phaser-ce'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainUI from './main-ui';
