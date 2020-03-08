@@ -11,7 +11,6 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5)
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.bulletTime = 0;
-    console.log(this.game.physics)
     this.weapon = {
       type: playerStats.weapon.type,
       level: playerStats.weapon.level,

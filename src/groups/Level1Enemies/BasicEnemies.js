@@ -17,7 +17,6 @@ export default class Aliens extends Phaser.Group {
     this.game.physics.arcade.overlap(this.gameState.bullets, this, this.bulletCollisionHandler, null, this.game);
     this.game.physics.arcade.overlap(this.gameState.player, this, this.playerCollisionHandler, null, this.game);
     if (this.game.time.now > this.firingTimer) {
-      console.log(this.gameState)
       if (this.gameState.player.alive) {
           this.enemyFires();
         }

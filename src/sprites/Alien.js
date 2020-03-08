@@ -21,7 +21,6 @@ export default class extends Phaser.Sprite {
       this.angle = this.game.math.radToDeg(Math.atan2(this.body.velocity.x, this.body.velocity.y));
       this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().player, this.alienHitsPlayer, null, this);
       this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().bullets, this.bulletHitsAlien, null, this);
-      console.log(this.game)
       if (this.game.state.getCurrentState().player.alive && this.game.time.now > this.firingStraightTimer) {
 
           this.fireStraightBullet();
