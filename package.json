@@ -29,7 +29,7 @@
     "webpack": "^2.6.1"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-preset-react": "^6.24.1",
     "phaser-ce": "^2.8.0",
     "prop-types": "^15.5.10",
